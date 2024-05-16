@@ -1,0 +1,59 @@
+import React, { useState, useEffect } from 'react';
+
+// Subscribing to a Timer
+const SubscribeToTimer = () => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCount((prevCount) => prevCount + 1);
+    }, 1000);
+
+    // Cleanup function to clear the timer
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+    <div>
+      <h2>Timer</h2>
+      <p>Count: {count}</p>
+    </div>
+  );
+};
+
+// Subscribing to a Document Event
+const SubscribeToDocumentEvent = () => {
+  useEffect(() => {
+    const handleScroll = () => {
+      console.log('Window scrolled');
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  return (
+    <div>
+      <h2>Scroll Event</h2>
+      <p>Scroll the window to see the log in the console.</p>
+    </div>
+  );
+};
+
+// Render both components
+const App = () => {
+  return (
+    <div>
+      <SubscribeToTimer />
+      <SubscribeToDocumentEvent />
+    </div>
+  );
+};
+
+export default App;

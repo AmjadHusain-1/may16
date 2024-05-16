@@ -1,0 +1,27 @@
+import React, { useState, useEffect } from 'react';
+
+const UpdateDocumentTitle = () => {
+  const [title, setTitle] = useState('');
+
+  useEffect(() => {
+    const updateTitle = () => {
+      const newTitle = `My App - ${title}`;
+      document.title = newTitle;
+    };
+
+    updateTitle();
+  }, [title]);
+
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
+  return (
+    <div>
+      <h2>Update Document Title</h2>
+      <input type="text" value={title} onChange={handleTitleChange} placeholder="Enter a title" />
+    </div>
+  );
+};
+
+export default UpdateDocumentTitle;
